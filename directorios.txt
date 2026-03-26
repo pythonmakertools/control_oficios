@@ -1,0 +1,11 @@
+gestion_oficios/
+│
+├── servidor.py                 # Archivo principal (versión reducida)
+├── cliente.py                  # Cliente (si aplica)
+├── database.py                 # Módulo de conexión y consultas BD
+├── graficas.py                 # Módulo de gráficas
+├── oficios_gestion.py          # Gestión CRUD de oficios
+├── usuarios_gestion.py         # Gestión CRUD de usuarios
+├── notificaciones.py           # Módulo de correos
+├── archivos_gestion.py         # Gestión de archivos binarios
+└── config.py                    # Configuración y constantes

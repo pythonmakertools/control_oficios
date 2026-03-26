@@ -1,0 +1,18 @@
+C:\gestion_oficios\
+├── dist\
+│   ├── GestionOficios_Cliente\
+│   │   ├── GestionOficios_Cliente.exe
+│   │   ├── .env
+│   │   └── cliente\ (carpeta con módulos)
+│   └── GestionOficios_Servidor\
+│       ├── GestionOficios_Servidor.exe
+│       ├── .env
+│       └── servidor\ (carpeta con módulos)
+├── build\ (temporal, se puede eliminar)
+├── run_cliente.py
+├── run_servidor.py
+├── cliente.spec
+├── servidor.spec
+├── build.bat
+├── check_build.py
+└── create_shortcuts.bat

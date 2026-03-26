@@ -1,0 +1,35 @@
+# ============================================
+# CONFIGURACIÓN ÚNICA - GESTIÓN DE OFICIOS
+# ============================================
+
+# Configuración de Red (IP del servidor)
+SERVER_IP=x.x.x.x  # Cambiar por la IP real del servidor
+
+# Base de Datos (misma configuración para ambos)
+DB_HOST=x.x.x.x      # Misma IP del servidor
+DB_PORT=5432
+DB_NAME=nombre_bd
+DB_USER=usuario_bd_postgres
+DB_PASSWORD=clave_password_postgres
+
+# Seguridad
+SECRET_KEY=7a8b9c0d1e2f3g4h5i6j7k8l9m0n1o2p3q4r5s6t7u8v9w0x1y2z
+SESSION_TIMEOUT_MINUTES=30
+
+# Configuración de correo (para notificaciones)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tucorreo@gmail.com
+#debes de generar la clave de aplicacion en este caso para tu cuenta Gmail, antes de generarlo 
+#debes de tener autentificacion de dos pasos en esa cuenta antes de generarla
+SMTP_PASSWORD=djqn jybe hfim ifmy  # Contraseña de aplicación
+
+# Carpetas para archivos (solo para respaldo temporal)
+CARPETA_BASE=C:\gestion_oficios\temp
+CARPETA_NO_ASIGNADOS=C:\gestion_oficios\adjuntos\no_asignados
+CARPETA_ASIGNADOS=C:\gestion_oficios\adjuntos\asignados
+CARPETA_ACUSES=C:\gestion_oficios\adjuntos\acuses
+
+# Logs
+LOG_FILE=C:\gestion_oficios\logs\sistema.log
+LOG_LEVEL=INFO

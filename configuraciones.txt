@@ -1,0 +1,167 @@
+Instrucciones para configurar y probar Cliente-Servidor
+1. REQUISITOS PREVIOS
+bash
+# Instalar Python 3.8+ si no lo tienes
+# Verificar instalación
+python --version
+
+# Instalar pip si es necesario
+python -m ensurepip
+2. CREAR ENTORNO VIRTUAL (en cada máquina)
+bash
+# En el SERVIDOR
+cd C:\gestion_oficios
+python -m venv venv
+venv\Scripts\activate
+
+# En el CLIENTE
+cd C:\gestion_oficios
+python -m venv venv
+venv\Scripts\activate
+3. INSTALAR DEPENDENCIAS (en cada máquina)
+bash
+# Con el entorno virtual activado
+pip install psycopg2-binary python-dotenv openpyxl matplotlib numpy pillow pymupdf
+O si tienes requirements.txt:
+
+bash
+pip install -r requirements.txt
+4. CONFIGURAR ARCHIVO .env
+En el SERVIDOR:
+env
+# Configuración del servidor
+SERVER_IP=192.168.1.100  # IP REAL DEL SERVIDOR
+
+# Base de datos
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=gestion_oficios
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
+
+# Correo SMTP (Gmail ejemplo)
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tu_correo@gmail.com
+SMTP_PASSWORD=tu_contraseña_app
+
+# Carpetas
+CARPETA_BASE=C:\\gestion_oficios\\temp
+CARPETA_NO_ASIGNADOS=C:\\gestion_oficios\\adjuntos\\no_asignados
+CARPETA_ASIGNADOS=C:\\gestion_oficios\\adjuntos\\asignados
+CARPETA_ACUSES=C:\\gestion_oficios\\adjuntos\\acuses
+
+# Logging
+LOG_FILE=C:\\gestion_oficios\\logs\\servidor.log
+LOG_LEVEL=INFO
+En el CLIENTE:
+env
+# Configuración del cliente
+SERVER_IP=192.168.1.100  # MISMA IP DEL SERVIDOR
+
+# Base de datos (misma que servidor)
+DB_PORT=5432
+DB_NAME=gestion_oficios
+DB_USER=postgres
+DB_PASSWORD=tu_contraseña
+5. CONFIGURAR BASE DE DATOS (solo en servidor)
+bash
+# Conectar a PostgreSQL
+psql -U postgres
+
+# Crear base de datos
+CREATE DATABASE gestion_oficios;
+
+# Conectar a la base de datos
+\c gestion_oficios;
+
+# Ejecutar script de esquema (si lo tienes)
+\i C:\gestion_oficios\esquema.sql
+6. CREAR CARPETAS NECESARIAS (en servidor)
+bash
+mkdir C:\gestion_oficios\adjuntos\no_asignados
+mkdir C:\gestion_oficios\adjuntos\asignados
+mkdir C:\gestion_oficios\adjuntos\acuses
+mkdir C:\gestion_oficios\logs
+mkdir C:\gestion_oficios\temp
+mkdir C:\gestion_oficios\graficas
+7. CONFIGURAR FIREWALL Y RED
+En el SERVIDOR:
+bash
+# Abrir puerto 5432 en firewall de Windows
+netsh advfirewall firewall add rule name="PostgreSQL" dir=in action=allow protocol=TCP localport=5432
+
+# Verificar IP del servidor
+ipconfig
+# Buscar "Dirección IPv4" - ej: 192.168.1.100
+En el CLIENTE:
+bash
+# Probar conectividad con el servidor
+ping 192.168.1.100
+
+# Probar puerto PostgreSQL
+telnet 192.168.1.100 5432
+8. CONFIGURAR POSTGRESQL PARA ACCESO REMOTO
+En el servidor, editar postgresql.conf:
+
+conf
+listen_addresses = '*'
+Editar pg_hba.conf:
+
+conf
+# Permitir conexiones desde la red local
+host    all             all             192.168.1.0/24          md5
+Reiniciar PostgreSQL:
+
+bash
+net stop postgresql
+net start postgresql
+9. EJECUTAR PRUEBAS
+PASO 1: Iniciar servidor
+bash
+# En la máquina servidor
+cd C:\gestion_oficios
+venv\Scripts\activate
+python -m servidor.servidor
+PASO 2: Verificar servidor
+✅ Debe abrir ventana de login
+
+✅ Login con admin (usuario: admin, contraseña: admin)
+
+✅ Debe mostrar la interfaz principal
+
+PASO 3: Iniciar cliente
+bash
+# En la máquina cliente
+cd C:\gestion_oficios
+venv\Scripts\activate
+python cliente.py
+PASO 4: Verificar cliente
+✅ Debe conectar a BD del servidor
+
+✅ Login con usuario normal
+
+✅ Debe mostrar oficios asignados
+
+10. PRUEBAS BÁSICAS
+bash
+# 1. En servidor, crear usuario de prueba
+# 2. En servidor, asignar oficio a ese usuario
+# 3. En cliente, verificar que aparece el oficio
+# 4. En cliente, marcar como atendido
+# 5. En servidor, verificar cambio de estado
+11. SOLUCIÓN DE PROBLEMAS COMUNES
+Problema	Solución
+"No se pudo conectar a BD"	Verificar IP, firewall, PostgreSQL
+"Connection refused"	PostgreSQL no acepta conexiones remotas
+"Password authentication failed"	Credenciales incorrectas
+"Module not found"	Ejecutar pip install -r requirements.txt
+12. ARCHIVO requirements.txt (crear en raíz)
+txt
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+openpyxl>=3.1.0
+matplotlib>=3.5.0
+numpy>=1.21.0
+pillow>=9.0.0
+pymupdf>=1.23.0

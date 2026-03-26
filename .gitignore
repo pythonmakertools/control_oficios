@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Archivos grandes
+*.zip
+*.xlsx
+*.csv
+*.pdf
+
+# Temporales
+*.log
+*.tmp
+.DS_Store

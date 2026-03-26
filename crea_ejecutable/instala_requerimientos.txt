@@ -1,0 +1,5 @@
+# Navegar a la carpeta del proyecto
+cd C:\gestion_oficios
+
+# Instalar dependencias (incluyendo pyinstaller)
+pip install psycopg2-binary python-dotenv openpyxl matplotlib numpy pymupdf pillow pyinstaller

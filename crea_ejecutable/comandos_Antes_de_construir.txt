@@ -1,0 +1,9 @@
+# Verificar que los puntos de entrada funcionan
+python run_cliente.py
+python run_servidor.py
+
+# Verificar dependencias
+python check_build.py
+
+# Construir en modo debug (para ver errores)
+pyinstaller cliente.spec --debug
